@@ -1,0 +1,106 @@
+.thehomemain
+{
+    /* border: 2px solid red; */
+    height: 100vh;
+    color: white;
+    background-image: url("https://images.unsplash.com/photo-1714564209284-1ba07d735e76?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    font-family: var(--heading_font);
+}
+.theupperpart
+{    background-color: rgba(0, 0, 0, 0.541);
+    /* border: 2px solid green; */
+    height: 75%;
+    display: flex;
+}
+.upper_right
+{
+
+    /* border: 2px solid purple; */
+    width: 85%;
+    display: flex;
+    align-items: end;
+    justify-content: center;
+    padding: 3% 4%;
+    gap: 7%;
+    text-align: right;
+    flex-direction: column;
+}
+.upper_right h1
+{
+    font-size: 3rem;
+    text-align: right;
+    margin: 5px 10px;
+}
+.upper_right p
+{
+    font-size: 1rem;
+    margin: 5px 10px;
+}
+.upper_right button
+{
+    width: 20%;
+    margin: 5px 10px;
+    height: 12%;
+    font-size: 18px;
+    border-radius: 25px;
+    /* font-style: italic; */
+    border: none;
+    cursor: pointer;
+    font-family: var(--heading_font);
+}
+.upper_left
+{
+    /* border: 2px solid orange; */
+    width: 15%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 4%;
+}
+.upper_left
+a
+{
+    margin: 3% 2px;
+}
+.lowerpart
+{
+    /* border: 2px solid blue; */
+    height: 25%;
+display: flex;
+justify-content: space-evenly;
+align-items: center;
+background-color: rgba(0, 0, 0, 0.541);
+}
+.lower_content
+{
+    /* border: 2px solid white; */
+    border-left: 5px solid white;
+    width: 22%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 45%;
+    text-align: left;
+    padding: 1px 10px;
+}
+.lower_content p
+{
+    font-size: .9rem;
+}
+
+.createquiz_section
+{
+    background-color: rgba(0, 0, 0, 0.952);
+    border: 2px solid red;
+    height: 100vh;
+    color: aliceblue;
+}
+.create_quiz
+{
+    display: none;
+ 
+}
