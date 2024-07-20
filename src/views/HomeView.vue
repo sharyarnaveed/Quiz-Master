@@ -16,6 +16,10 @@ const theclick=()=>
 </script>
 
 <template>
+
+
+  
+
   <main :class="{create_quiz:displaynext}" class="thehomemain">
 <section  class="theupperpart">
  <div class="upper_left">
@@ -82,7 +86,18 @@ const theclick=()=>
 
 
   </main>
-
+  <transition >
 <createquiz v-show="getstarted==true" />
-
+  </transition>
 </template>
+
+<style scoped>
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 0.5s ease-out;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
+}</style>
