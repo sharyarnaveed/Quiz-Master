@@ -1,7 +1,7 @@
 <script setup>
 import "../assets/home.css";
 import { ref } from "vue";
-import createquiz from '../components/createquiz.vue';
+import optionquiz from '../components/optionquiz.vue';
 
 const displaynext=ref(false);
 const getstarted=ref(false)
@@ -87,7 +87,7 @@ const theclick=()=>
 
   </main>
   <transition >
-<createquiz v-show="getstarted==true" />
+<optionquiz v-show="getstarted==true" />
   </transition>
 </template>
 
