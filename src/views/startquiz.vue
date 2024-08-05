@@ -1,15 +1,18 @@
 <script setup>
 import '../assets/startquiz.css';
+import { RouterLink, RouterView } from 'vue-router'
 import { onMounted, ref } from 'vue';
+import router from '@/router';
 
-const thesearchstatus=ref(false);
+const found=ref();
 const thesearchform=ref({
     searchcode:''
 })
 
 const searchcode=()=>
 {
-  thesearchstatus.value=true;
+ found.value=true;
+
 }
 
 
@@ -29,10 +32,10 @@ export default {
     return {
       typeValue: "",
       typeStatus: false,
-      displayTextArray: ["To Start ","To Begin"],
-      typingSpeed: 70,
+      displayTextArray: ["To Start"],
+      typingSpeed: 75,
       erasingSpeed: 100,
-      newTextDelay: 2000,
+      newTextDelay: 1000,
       displayTextArrayIndex: 0,
       charIndex: 0,
     };
@@ -78,72 +81,41 @@ export default {
 </script>
 
 <template>
- <main v-if="thesearchstatus==true" :class="{thequizconatiner:thesearchstatus}"  >
- 
-<section class="quizcon_inmain">
-  <div class="top">
-    <h1>Title</h1>
-  </div>
-  <div class="info">
 
-    <div class="input-wrapper">
-      <input class="theinfo_input" type='text'  required ></input>
-      <label 
-             for='input' 
-             class='placeholder'>
-        Name
-      </label>
-    </div>
-   
-
-
-    <div class="input-wrapper">
-      <input class="theinfo_input" type='text' id='input' required ></input>
-      <label 
-             for='input' 
-             class='placeholder'>
-        Email
-      </label>
-    </div>
-
-
-  </div>
-<div class="quizque">
-  que
-</div>
-</section>
-   
-
-
-
-
-  </main> 
    
   
-  
-  <main :class="{iftrue:thesearchstatus}" class="thequizcontainer">
+  <main  class="thequizcontainer">
 
-    <div class="thestartcardc">
+<div class="thestartcardc">
+  
+<div class="startheading">
+        <h1>
+ Write Quiz Code!
+  <span class="typed-text">{{ typeValue }}</span>
+  <span class="blinking-cursor">|</span>
+  <span class="cursor" :class="{ typing: typeStatus }">&nbsp;</span>
+</h1>
+
+    </div>
+    <form @submit.prevent="searchcode" class="thesearchform">
       
-    <div class="startheading">
-            <h1>
-     Write Quiz Code!
-      <span class="typed-text">{{ typeValue }}</span>
-      <span class="blinking-cursor">|</span>
-      <span class="cursor" :class="{ typing: typeStatus }">&nbsp;</span>
-    </h1>
-    
-        </div>
-        <form @submit.prevent="searchcode" class="thesearchform">
-          
-          <div class="theform">
-            <input type="text" v-model="thesearchform.searchcode" placeholder="Code">
-            <button type="submit">Search</button>
-        </div>
-        </form>
-        <h4 class="therefh4">Code: {{ thesearchform.searchcode }}</h4>
+      <div class="theform">
+        <input type="text" v-model="thesearchform.searchcode" placeholder="Code">
+        <button type="submit">Search</button>
     </div>
-    </main>
+    </form>
+    <h4 class="therefh4">Code: {{ thesearchform.searchcode }}</h4>
+   <div class="found_quiz">
+    <router-link style=" color: black;" v-if="found" to="/thequiz">Click to Continue</router-link>
+    <h4 v-else-if="!found">Quiz Not Found</h4>
+    <slot v-else></slot>
+  </div>
+</div>
+
+
+
+</main>
+
 
 </template>
 
