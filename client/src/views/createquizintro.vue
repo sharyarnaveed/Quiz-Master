@@ -1,41 +1,14 @@
-<script setup>
-import '../assets/startquiz.css';
-import { RouterLink, RouterView } from 'vue-router'
-import { onMounted, ref } from 'vue';
-import router from '@/router';
-
-const found=ref();
-const thesearchform=ref({
-    searchcode:''
-})
-
-const searchcode=()=>
-{
- found.value=true;
-
-}
-
-
-
-
-
-
-
-</script>
-
-<script >
-
-
+<script>
 export default {
   name: "typeWiriter",
   data: () => {
     return {
       typeValue: "",
       typeStatus: false,
-      displayTextArray: ["To Start"],
-      typingSpeed: 75,
+      displayTextArray: ["Create a Quiz", "Start a Quiz"],
+      typingSpeed: 70,
       erasingSpeed: 100,
-      newTextDelay: 1000,
+      newTextDelay: 2000,
       displayTextArrayIndex: 0,
       charIndex: 0,
     };
@@ -46,11 +19,14 @@ export default {
   },
   methods: {
     typeText() {
-      if (this.charIndex < this.displayTextArray[this.displayTextArrayIndex].length) {
+      if (
+        this.charIndex <
+        this.displayTextArray[this.displayTextArrayIndex].length
+      ) {
         if (!this.typeStatus) this.typeStatus = true;
-        this.typeValue += this.displayTextArray[this.displayTextArrayIndex].charAt(
-          this.charIndex
-        );
+        this.typeValue += this.displayTextArray[
+          this.displayTextArrayIndex
+        ].charAt(this.charIndex);
         this.charIndex += 1;
         setTimeout(this.typeText, this.typingSpeed);
       } else {
@@ -61,10 +37,9 @@ export default {
     eraseText() {
       if (this.charIndex > 0) {
         if (!this.typeStatus) this.typeStatus = true;
-        this.typeValue = this.displayTextArray[this.displayTextArrayIndex].substring(
-          0,
-          this.charIndex - 1
-        );
+        this.typeValue = this.displayTextArray[
+          this.displayTextArrayIndex
+        ].substring(0, this.charIndex - 1);
         this.charIndex -= 1;
         setTimeout(this.eraseText, this.erasingSpeed);
       } else {
@@ -77,65 +52,35 @@ export default {
     },
   },
 };
-
 </script>
 
 <template>
-
-   
-  
-  <main  class="thequizcontainer">
-
-<div class="thestartcardc">
-  
-<div class="startheading">
+  <section class="createquiz">
+    <div class="createquiz_card">
+      <div class="heading">
         <h1>
- Write Quiz Code!
-  <span class="typed-text">{{ typeValue }}</span>
-  <span class="blinking-cursor">|</span>
-  <span class="cursor" :class="{ typing: typeStatus }">&nbsp;</span>
-</h1>
-
+          Choose!
+          <span class="typed-text">{{ typeValue }}</span>
+          <span class="blinking-cursor">|</span>
+          <span class="cursor" :class="{ typing: typeStatus }">&nbsp;</span>
+        </h1>
+      </div>
     </div>
-    <form @submit.prevent="searchcode" class="thesearchform">
-      
-      <div class="theform">
-        <input type="text" v-model="thesearchform.searchcode" placeholder="Code">
-        <button type="submit">Search</button>
-    </div>
-    </form>
-    <h4 class="therefh4">Code: {{ thesearchform.searchcode }}</h4>
-   <div class="found_quiz">
-    <router-link style=" color: black;" v-if="found" to="/thequiz">Click to Continue</router-link>
-    <h4 v-else-if="!found">Quiz Not Found</h4>
-    <slot v-else></slot>
-  </div>
-
-  
-</div>
-
-
-
-</main>
-
-
+  </section>
 </template>
 
 <style scoped>
 h1 {
-  font-size: 2.5rem;
-  color: black;
-  font-family: var(--heading_font);
+  font-size: 2rem;
   font-weight: normal;
-  letter-spacing:-4px ;
+  letter-spacing: -2px;
   span.typed-text {
     color: #d62828;
   }
 }
 
-
 .blinking-cursor {
-  font-size: 3rem;
+  font-size: 2.5rem;
   color: #2c3e50;
   -webkit-animation: 1s blink step-end infinite;
   -moz-animation: 1s blink step-end infinite;
@@ -187,5 +132,29 @@ h1 {
   50% {
     color: #2c3e50;
   }
+}
+
+.createquiz {
+  /* border: 2px solid red; */
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: end;
+  padding-bottom: 1.5%;
+  background-size: cover;
+  background-image: url("https://images.unsplash.com/photo-1708844897353-649da595a3f2?q=80&w=1032&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+}
+.createquiz_card {
+  border: 2px solid blue;
+  height: 62%;
+  background-color: white;
+  width: 55%;
+}
+.heading{
+    border: 2px solid green;
+    height: 15%;
+    justify-content: center;
+    align-items: center;
+    display: flex;
 }
 </style>

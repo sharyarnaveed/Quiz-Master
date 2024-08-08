@@ -75,7 +75,7 @@ export default {
              <router-link class="thebuttons" to="/startquiz">
                 <img src="./icons/choose.png" alt="">
                 Start a quiz</router-link>
-             <router-link class="thebuttons" to="/createquiz">
+             <router-link class="thebuttons" to="/createquizintro">
                 <img src="./icons/quiz.png" alt="">
                 Create a Quiz</router-link>
         </div>
