@@ -57,6 +57,7 @@ export default {
 <template>
   <section class="createquiz">
     <div class="createquiz_card">
+
       <div class="heading">
         <h1>
           Choose!
@@ -65,6 +66,16 @@ export default {
           <span class="cursor" :class="{ typing: typeStatus }">&nbsp;</span>
         </h1>
       </div>
+
+<form action="" class="createthequiz_conn">
+
+<input type="text" placeholder="Enter Your Name"  name="" id="">
+<input type="email" placeholder="Enter Your Email" name="" id="">
+<!-- <br> -->
+<button type="submit">Create Quiz</button>
+
+</form>
+
     </div>
   </section>
 </template>
@@ -145,16 +156,53 @@ h1 {
   background-image: url("https://images.unsplash.com/photo-1708844897353-649da595a3f2?q=80&w=1032&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
 }
 .createquiz_card {
-  border: 2px solid blue;
-  height: 62%;
+  /* border: 2px solid blue; */
+  height: 65%;
   background-color: white;
   width: 55%;
 }
 .heading{
-    border: 2px solid green;
+    /* border: 2px solid green; */
     height: 15%;
     justify-content: center;
     align-items: center;
     display: flex;
 }
+.createthequiz_conn{
+ /* border: 2px solid blue; */
+ height: 85%;   
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ gap: 2%;
+ justify-content: space-evenly;
+}
+
+.createthequiz_conn input{
+width: 60%;
+height: 20%;
+font-size: 16px;
+padding: 0px 5px;
+font-family: var(--heading_font);
+outline-color: #d62828;
+}
+
+.createthequiz_conn button
+{
+  height: 18%;
+  width: 30%;
+  font-size: 18px;
+  font-family: var(--heading_font);
+background-color: #d62828;
+border: none;
+color: white;
+cursor: pointer;
+border-radius: 8px;
+
+-webkit-box-shadow: 18px 14px 42px 0px rgba(0,0,0,0.75);
+-moz-box-shadow: 18px 14px 42px 0px rgba(0,0,0,0.75);
+box-shadow: 18px 14px 30px 0px rgba(0, 0, 0, 0.363);
+
+}
+
 </style>
