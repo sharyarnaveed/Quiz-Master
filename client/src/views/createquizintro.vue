@@ -54,6 +54,24 @@ export default {
 };
 </script>
 
+
+<script setup>
+import { ref, onMounted } from 'vue';
+
+const name=ref('');
+
+const tocreatequiz=()=>
+{
+  sessionStorage.setItem("name",name.value)
+  window.location.href="/createquiz"
+}
+
+onMounted(() => {
+  sessionStorage.removeItem("name");
+})
+
+</script>
+
 <template>
   <section class="createquiz">
     <div class="createquiz_card">
@@ -67,10 +85,10 @@ export default {
         </h1>
       </div>
 
-<form action="" class="createthequiz_conn">
+<form @submit.prevent="tocreatequiz"  class="createthequiz_conn">
 
-<input type="text" placeholder="Enter Your Name"  name="" id="">
-<input type="email" placeholder="Enter Your Email" name="" id="">
+<input type="text" autocomplete="off" v-model="name" placeholder="Enter Your Name"  name="" id="">
+<input type="email" autocomplete="off" placeholder="Enter Your Email" name="" id="">
 <!-- <br> -->
 <button type="submit">Create Quiz</button>
 
