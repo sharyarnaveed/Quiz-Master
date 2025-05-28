@@ -4,6 +4,9 @@ import { onMounted, ref } from "vue";
 // Array to manage the quiz elements with their content
 const quizElements = ref([]);
 
+// Add a ref for the quiz title
+const quizTitle = ref("");
+
 // Function to add a new quiz element
 const addMore = () => {
   quizElements.value.push({
@@ -44,18 +47,32 @@ const submitForm = () => {
     selectedAnswers: [...element.selectedAnswers], // Copy selected answers array
   }));
 
-  console.log("Form Data:", formData);
+  // Include the quiz title in the form data
+  const completeFormData = {
+    title: quizTitle.value,
+    questions: formData
+  };
+
+  console.log("Form Data:", completeFormData);
 };
+
+
 
 onMounted(() => {
   addMore();
 });
 </script>
+
 <template>
   <main class="thequemain">
     <section class="quizcon_inmain">
       <div class="top">
-        <h1>Title</h1>
+        <input 
+          type="text" 
+          v-model="quizTitle"
+          placeholder="Enter Quiz Title..."
+          class="quiz-title-input"
+        >
       </div>
 
       <div class="info">
@@ -494,5 +511,32 @@ input[type="checkbox"]::before {
   content: '';
   position: absolute;
   display: none;
+}
+
+.quiz-title-input {
+  width: 100%;
+  max-width: 600px;
+  padding: 15px 20px;
+  font-size: 2rem;
+  font-weight: 600;
+  border: 2px solid #333;
+  border-radius: 12px;
+  background-color: rgba(37, 37, 37, 0.9);
+  color: #f5f5f5;
+  text-align: center;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.quiz-title-input:focus {
+  border-color: #e50914;
+  box-shadow: 0 0 20px rgba(229, 9, 20, 0.4);
+  outline: none;
+  background-color: rgba(37, 37, 37, 1);
+}
+
+.quiz-title-input::placeholder {
+  color: #888;
+  opacity: 0.8;
 }
 </style>
