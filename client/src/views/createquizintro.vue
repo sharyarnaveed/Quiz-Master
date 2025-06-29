@@ -54,28 +54,60 @@ export default {
 };
 </script>
 
-
 <script setup>
-import { ref, onMounted } from 'vue';
+import axios from "axios";
+import { ref, onMounted } from "vue";
+import errormsg from "@/components/error.vue";
+import router from "@/router";
+const sendingdata = ref(false);
+const creatordata = {
+  name: "",
+  email: "",
+};
+const theerrorstate = ref(false);
+const theerrormsg = ref("");
 
-const name=ref('');
+const tocreatequiz = async () => {
+  sendingdata.value = true;
+  console.log(creatordata);
+  try {
+    const responce = await axios.post("/api/user/savecreator", creatordata);
+    console.log(responce.data);
+    if (responce.data.success) {
+      sessionStorage.setItem("name", creatordata.name);
+      sessionStorage.setItem("email",creatordata.email)
+      sessionStorage.setItem("userid",responce.data.userId)
+      sendingdata.value = false;
+      router.push("/createquiz")
 
-const tocreatequiz=()=>
-{
-  sessionStorage.setItem("name",name.value)
-  window.location.href="/createquiz"
-}
+     
+
+    } else {
+       setTimeout(() => {
+      theerrorstate.value = false;
+        
+      }, 3000);
+      theerrorstate.value = true;
+      theerrormsg.value = responce.data.message;
+      sendingdata.value = false;
+    }
+  } catch (error) {
+    console.log(error);
+    theerrormsg.value = "User Not created";
+  } finally {
+    sendingdata.value = false;
+  }
+  // window.location.href="/createquiz"
+};
 
 onMounted(() => {
   sessionStorage.removeItem("name");
-})
-
+});
 </script>
 
 <template>
   <section class="createquiz">
     <div class="createquiz_card">
-
       <div class="heading">
         <h1>
           Choose!
@@ -84,16 +116,31 @@ onMounted(() => {
           <span class="cursor" :class="{ typing: typeStatus }">&nbsp;</span>
         </h1>
       </div>
+        <errormsg v-if="theerrorstate" :messagevalue="theerrormsg" />
 
-<form @submit.prevent="tocreatequiz"  class="createthequiz_conn">
-
-<input type="text" autocomplete="off" v-model="name" placeholder="Enter Your Name"  name="" id="">
-<input type="email" autocomplete="off" placeholder="Enter Your Email" name="" id="">
-<!-- <br> -->
-<button type="submit">Create Quiz</button>
-
-</form>
-
+      <form @submit.prevent="tocreatequiz" class="createthequiz_conn">
+        <input
+          type="text"
+          autocomplete="off"
+          v-model="creatordata.name"
+          placeholder="Enter Your Name"
+          name=""
+          id=""
+        />
+        <input
+          type="email"
+          required
+          autocomplete="off"
+          v-model="creatordata.email"
+          placeholder="Enter Your Email"
+          name=""
+          id=""
+        />
+        <!-- <br> -->
+        <button type="submit" :disabled="sendingdata">
+          {{ sendingdata ? "Creating ..." : "Create Quiz" }}
+        </button>
+      </form>
     </div>
   </section>
 </template>
@@ -179,48 +226,45 @@ h1 {
   background-color: white;
   width: 55%;
 }
-.heading{
-    /* border: 2px solid green; */
-    height: 15%;
-    justify-content: center;
-    align-items: center;
-    display: flex;
+.heading {
+  /* border: 2px solid green; */
+  height: 15%;
+  justify-content: center;
+  align-items: center;
+  display: flex;
 }
-.createthequiz_conn{
- /* border: 2px solid blue; */
- height: 85%;   
- display: flex;
- flex-direction: column;
- align-items: center;
- gap: 2%;
- justify-content: space-evenly;
-}
-
-.createthequiz_conn input{
-width: 60%;
-height: 20%;
-font-size: 16px;
-padding: 0px 5px;
-font-family: var(--heading_font);
-outline-color: #d62828;
+.createthequiz_conn {
+  /* border: 2px solid blue; */
+  height: 85%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2%;
+  justify-content: space-evenly;
 }
 
-.createthequiz_conn button
-{
+.createthequiz_conn input {
+  width: 60%;
+  height: 20%;
+  font-size: 16px;
+  padding: 0px 5px;
+  font-family: var(--heading_font);
+  outline-color: #d62828;
+}
+
+.createthequiz_conn button {
   height: 18%;
   width: 30%;
   font-size: 18px;
   font-family: var(--heading_font);
-background-color: #d62828;
-border: none;
-color: white;
-cursor: pointer;
-border-radius: 8px;
+  background-color: #d62828;
+  border: none;
+  color: white;
+  cursor: pointer;
+  border-radius: 8px;
 
--webkit-box-shadow: 18px 14px 42px 0px rgba(0,0,0,0.75);
--moz-box-shadow: 18px 14px 42px 0px rgba(0,0,0,0.75);
-box-shadow: 18px 14px 30px 0px rgba(0, 0, 0, 0.363);
-
+  -webkit-box-shadow: 18px 14px 42px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 18px 14px 42px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 18px 14px 30px 0px rgba(0, 0, 0, 0.363);
 }
-
 </style>

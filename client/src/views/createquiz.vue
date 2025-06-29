@@ -1,36 +1,36 @@
 <script setup>
 import { onMounted, ref } from "vue";
 
-// Array to manage the quiz elements with their content
-const quizElements = ref([]);
 
-// Add a ref for the quiz title
+const quizElements = ref([]);
+const username=ref("")
+const email=ref("")
+
 const quizTitle = ref("");
 
-// Function to add a new quiz element
+
 const addMore = () => {
   quizElements.value.push({
-    id: Date.now(), // Unique ID for each element
-    textareaValue: "", // Initialize the textarea content
-    inputs: ["", "", "", ""], // Initialize the input values
-    selectedAnswers: [], // Array to store the values of checked inputs
+    id: Date.now(),
+    textareaValue: "",
+    inputs: ["", "", "", ""], 
+    selectedAnswers: [],
   });
 };
 
-// Function to remove a quiz element by its ID
+
 const remove = (id) => {
   quizElements.value = quizElements.value.filter(
     (element) => element.id !== id
   );
 };
 
-// Function to handle checkbox changes
+
 const handleCheckboxChange = (inputValue, isChecked, element) => {
-  // inputvalue stores the nas in it
-  //is checked send the boolean value
+
 
   if (isChecked) {
-    element.selectedAnswers.push(inputValue); //pushes the the elected value in array slected answers
+    element.selectedAnswers.push(inputValue); 
   } else {
     element.selectedAnswers = element.selectedAnswers.filter(
       (value) => value !== inputValue
@@ -38,16 +38,16 @@ const handleCheckboxChange = (inputValue, isChecked, element) => {
   }
 };
 
-// Function to handle form submission
+
 const submitForm = () => {
-  // loop through each quiz element and created a new array formData
+
   const formData = quizElements.value.map((element) => ({
     textareaValue: element.textareaValue,
-    inputs: [...element.inputs], // Copy the array
-    selectedAnswers: [...element.selectedAnswers], // Copy selected answers array
+    inputs: [...element.inputs], 
+    selectedAnswers: [...element.selectedAnswers], 
   }));
 
-  // Include the quiz title in the form data
+
   const completeFormData = {
     title: quizTitle.value,
     questions: formData
@@ -60,6 +60,9 @@ const submitForm = () => {
 
 onMounted(() => {
   addMore();
+
+username.value=sessionStorage.getItem("name")
+email.value=sessionStorage.getItem("email")
 });
 </script>
 
@@ -81,6 +84,7 @@ onMounted(() => {
             disabled
             class="theinfo_input"
             type="text"
+            :value="username"
             required
             placeholder="Name"
           />
@@ -91,6 +95,8 @@ onMounted(() => {
             class="theinfo_input"
             type="text"
             id="input"
+            :value="email"
+
             required
             placeholder="Other Info"
           />
