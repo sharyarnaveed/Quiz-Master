@@ -19,3 +19,4 @@ mongoose.connect('mongodb://localhost:27017/quizmaster',)
     })
 })
 .catch(()=>console.log('error in connection'))
+
